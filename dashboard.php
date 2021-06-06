@@ -1,6 +1,6 @@
 <?php
 include 'userAction.php'; 
-include 'profile.php';
+
 
 ?>
 <!doctype html>
@@ -21,7 +21,7 @@ include 'profile.php';
 
         </div>
         <div class="alert alert-warning alert-dismissible fade show mt-3" role="alert">
-        <?php echo "hello ".$_SESSION['first_name']." ".$_SESSION['last_name'] ?>
+        <?php echo "Hello ".$_SESSION['first_name']." ".$_SESSION['last_name'] ?>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -37,6 +37,12 @@ include 'profile.php';
             <div class="card-header bg-white text-dark border-0">
                 <h1 class="text-center">Menu Lists</h1><br>
                 <h2 class="text-center">Reservation Deadline: 9:00 AM</h2>
+                <a class="text-center" value="logout" href="login.php">Logout</a>
+                <?php
+                    if(isset($_POST['logout'])) {
+                        mysqli_close($conn);
+                    }
+                ?>
             </div>
 
             <div class="card-body">
@@ -49,13 +55,24 @@ include 'profile.php';
                   <label>Bowl(500 yen)</label><br>
                   <input type="radio" name="menu" value="daylunchs" class="mt-2" required>
                   <label>Today's Lunch(S-Class 800 yen)</label><br>
-                  <button type="submit" name="reservate" class="mt-5 btn btn-success">Reservate</button>
+                  <button type="submit" name="reservate" id="reservate" class="mt-5 btn btn-success">Reservate</button>
               </form>
             </div>
             <div class="card-footer">
+              <h3 class="text-center">If you update your information, click <a href="update.php">here</a>.</h3>
             </div>
         </div>
       </div>
+      <script>
+        var today = new Date();
+        var hour = today.getHours();
+        var button = document.getElementById('reservate');
+        console.log(hour);
+
+        if(hour >= 9){
+            button.disabled='true';
+        }
+        </script>
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
